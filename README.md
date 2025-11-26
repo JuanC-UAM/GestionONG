@@ -1,3 +1,6 @@
-[<img src="./diagrama_clases.svg" width="250" alt="Clic para ver diagrama completo">](./diagrama_clases.svg)
-
-> hola
+<div align="center">
+  <a href="https://raw.githubusercontent.com/JuanC-UAM/GestionONG/refs/heads/master/diagrama_clases.svg" target="_blank">
+    <img src="https://raw.githubusercontent.com/JuanC-UAM/GestionONG/refs/heads/master/diagrama_clases.svg" width="600" alt="Diagrama de Clases UML">
+  </a>
+  <p><em> hola </em></p>
+</div>
