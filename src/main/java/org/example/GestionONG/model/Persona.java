@@ -10,7 +10,7 @@ import org.openxava.annotations.*;
 @Setter
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Persona {
+public class Persona {
     @Id
     @Column(length = 20)
     private String cedula;
