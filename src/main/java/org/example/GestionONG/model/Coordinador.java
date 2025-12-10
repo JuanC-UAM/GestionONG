@@ -1,23 +1,25 @@
 package org.example.GestionONG.model;
 
-import javax.persistence.*;
-
 import lombok.Getter;
 import lombok.Setter;
-import org.openxava.annotations.*;
+import org.openxava.annotations.DescriptionsList;
+import org.openxava.annotations.ListProperties;
+import org.openxava.annotations.Required;
 
-import java.math.BigDecimal;
-import java.util.*;
+import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 public class Coordinador {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Required
+    @Required // Evita registrar un coordinador sin cargo
     @Column(length = 50)
     private String cargo;
 
@@ -25,19 +27,20 @@ public class Coordinador {
     private String areaDepartamento;
 
     @Column(length = 10)
+    @Pattern(
+            regexp = "^[0-9-]*$",
+            message = "Solo números y guiones"
+    ) // ''Controla que la extensión tenga formato válido''
     private String numeroExtension;
 
     @ManyToOne(optional = false)
     @DescriptionsList(descriptionProperties = "nombreCompleto")
+    @Required // ''Obliga a seleccionar una persona''
     private Persona persona;
 
     @OneToMany(mappedBy = "liderResponsable")
     @ListProperties("nombre, categoria.nombre, ubicacionEjecucion.nombre")
     private List<Proyecto> proyectosAprobados;
 
-    @ReadOnly
-    public void autorizarGasto(BigDecimal monto) {
-        System.out.println("Gasto autorizado por " + persona.getNombreCompleto() +
-                " por un monto de: " + monto);
-    }
+    //metodo solo//
 }
