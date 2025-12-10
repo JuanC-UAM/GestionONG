@@ -1,17 +1,21 @@
 package org.example.GestionONG.actions;
 
-import org.openxava.actions.ViewBaseAction;
-import org.example.GestionONG.model.Coordinador;
-import java.math.BigDecimal;
+import org.openxava.actions.*;
 
 public class AutorizarGastoAction extends ViewBaseAction {
 
     @Override
     public void execute() throws Exception {
-        Coordinador c = (Coordinador) getView().getEntity();
-        // Aquí la lógica real; por ejemplo:
-        BigDecimal monto = new BigDecimal("1000.00");
-        c.autorizarGasto(monto);
-        addMessage("Gasto autorizado por " + c.getPersona().getNombreCompleto());
+        if (getView().getValue("id") == null) {
+            addError("Error: Se debe guardar el Coordinador antes de autorizar gastos.");
+            return;
+        }
+
+        showDialog();
+
+        getView().setModelName("DatosAutorizacion");
+        getView().setTitle("Autorizar Nuevo Gasto");
+
+        setControllers("DialogoAutorizacion");
     }
 }

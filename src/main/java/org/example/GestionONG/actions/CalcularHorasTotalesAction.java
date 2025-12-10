@@ -1,14 +1,20 @@
 package org.example.GestionONG.actions;
 
-import org.openxava.actions.ViewBaseAction;
-import org.example.GestionONG.model.Voluntario;
+import org.openxava.actions.*;
 
 public class CalcularHorasTotalesAction extends ViewBaseAction {
 
     @Override
     public void execute() throws Exception {
-        Voluntario v = (Voluntario) getView().getEntity();
-        int horas = v.calcularHorasTotales();
-        addMessage("Horas totales: " + horas);
+        if (getView().getValue("id") == null) {
+            addError("Primero hay que guardar el voluntario.");
+            return;
+        }
+
+        showDialog();
+        getView().setModelName("FiltroHoras");
+        getView().setTitle("Calcular Horas por Periodo");
+
+        setControllers("DialogoCalcularHoras");
     }
 }

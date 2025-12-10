@@ -5,7 +5,10 @@
     <!-- Coordinador: autorizar gasto -->
     <controller name="Coordinador">
         <extends controller="Typical"/>
-        <action name="autorizarGasto" icon="money" class="org.example.GestionONG.actions.AutorizarGastoAction"/>
+        <action name="autorizarGasto"
+                icon="money"
+                class="org.example.GestionONG.actions.AutorizarGastoAction"
+                mode="detail"/>
     </controller>
 
     <!-- Voluntario: calcular horas totales -->
@@ -14,4 +17,23 @@
         <action name="calcularHorasTotales" icon="clock" class="org.example.GestionONG.actions.CalcularHorasTotalesAction"/>
     </controller>
 
+    <controller name="DialogoAutorizacion">
+        <action name="confirmar"
+                class="org.example.GestionONG.actions.ConfirmarAutorizacionAction"
+                icon="check"/>
+        <action name="cancelar"
+                class="org.openxava.actions.CancelAction"
+                icon="close"/>
+    </controller>
+
+    <controller name="DialogoCalcularHoras">
+        <action name="calcular"
+                class="org.example.GestionONG.actions.MostrarHorasAction"
+                icon="calculator"/>
+        <action name="cancelar"
+                class="org.openxava.actions.CancelAction"
+                icon="close"/>
+    </controller>
+
 </controllers>
+
