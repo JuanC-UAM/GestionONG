@@ -11,6 +11,7 @@ import java.util.*;
 @Setter
 @Entity
 public class Participacion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ReadOnly
@@ -18,21 +19,23 @@ public class Participacion {
 
     @ManyToOne(optional = false)
     @DescriptionsList(descriptionProperties = "persona.nombreCompleto")
+    @Required // ''Obliga a seleccionar el voluntario que participa''
     private Voluntario voluntario;
 
     @ManyToOne(optional = false)
     @DescriptionsList(descriptionProperties = "nombre")
+    @Required // ''Evita registrar participación sin un proyecto asignado''
     private Proyecto proyecto;
 
     @Column(length = 50)
-    private String rolEnProyecto;
+    private String rolEnProyecto; // ''Rol opcional, solo limitado por longitud''
 
     @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
+    private Date fechaInicio; // ''Fecha opcional''
 
-    private int horasRegistradas;
+    private int horasRegistradas; // ''Solo número entero, sin validaciones extra''
 
     @OneToMany(mappedBy = "asignacion", cascade = CascadeType.ALL)
     @ListProperties("descripcion, completada, fechaLimite")
-    private List<Tarea> tareas;
+    private List<Tarea> tareas; // ''Lista administrada por el proyecto''
 }
