@@ -14,6 +14,7 @@ import java.util.*;
 @Entity
 public class Coordinador {
     @Id
+    @ReadOnly
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

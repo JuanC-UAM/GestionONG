@@ -12,6 +12,7 @@ import org.openxava.annotations.*;
 public class Habilidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ReadOnly
     private Long id;
 
     @Required

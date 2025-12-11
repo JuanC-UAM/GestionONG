@@ -1,6 +1,7 @@
 package org.example.GestionONG.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*; // <--- IMPORTANTE para @Past
 import lombok.Getter;
 import lombok.Setter;
 import org.openxava.annotations.*;
@@ -16,6 +17,7 @@ public class Voluntario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ReadOnly
     private Long id;
 
     @Required
@@ -33,10 +35,27 @@ public class Voluntario {
     @Column(length = 10)
     private FactorRH rh;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @Required
     @DescriptionsList(descriptionProperties = "nombreCompleto")
     private Persona persona;
 
-    @ManyToMany
-    @ListPrope
+    // --- CORRECCIÓN: Definición completa de las listas ---
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @ListProperties("nombre, descripcion")
+    private Collection<Habilidad> habilidades;
+
+    @OneToMany(mappedBy = "voluntario")
+    @ListProperties("proyecto.nombre, rolEnProyecto, fechaInicio, horasRegistradas")
+    private Collection<Participacion> participaciones;
+
+    // --- MÉTODO CALCULADO (Necesario para tus controladores) ---
+    @ReadOnly
+    public int calcularHorasTotales() {
+        return participaciones == null ? 0 :
+                participaciones.stream()
+                        .mapToInt(Participacion::getHorasRegistradas)
+                        .sum();
+    }
+}

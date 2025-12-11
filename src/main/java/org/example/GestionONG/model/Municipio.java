@@ -13,6 +13,7 @@ import java.util.List;
 public class Municipio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ReadOnly
     private Long id;
 
     @Required

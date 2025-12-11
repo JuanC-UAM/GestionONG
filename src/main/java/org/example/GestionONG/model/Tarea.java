@@ -6,6 +6,10 @@ import lombok.Setter;
 import org.openxava.annotations.*;
 import java.util.*;
 
+// --- IMPORTACIONES AÑADIDAS ---
+import org.openxava.calculators.*; // Para CurrentDateCalculator
+import javax.validation.constraints.*; // Para @Future y @Size
+
 @Getter
 @Setter
 @Entity
@@ -13,25 +17,26 @@ public class Tarea {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ReadOnly
     private Long id;
 
     @Required
     @Column(length = 200)
-    @MaxSize(200)                // No más de 200 caracteres
+    @Size(max = 200, message = "La descripción no puede superar los 200 caracteres")
     @TextArea
     private String descripcion;
 
-    @Required                    // No permitir null en boolean (opcional)
+    @Required
     private boolean completada;
 
     @Required
     @Temporal(TemporalType.DATE)
-    @DefaultValueCalculator(CurrentDateCalculator.class)   // Pone la fecha actual por defecto
-    @Future                      // Validar que sea una fecha futura
+    @DefaultValueCalculator(CurrentDateCalculator.class)
+    @Future(message = "La fecha límite debe ser futura")
     private Date fechaLimite;
 
     @ManyToOne(optional = false)
     @Required
+    @DescriptionsList(descriptionProperties = "proyecto.nombre, rolEnProyecto")
     private Participacion asignacion;
 }
-

@@ -13,6 +13,7 @@ import java.util.*;
 public class Participacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ReadOnly
     private Long id;
 
     @ManyToOne(optional = false)
