@@ -16,7 +16,6 @@ import java.util.List;
 public class Coordinador {
 
     @Id
-    @ReadOnly
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

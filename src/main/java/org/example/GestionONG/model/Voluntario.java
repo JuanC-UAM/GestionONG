@@ -40,8 +40,6 @@ public class Voluntario {
     @DescriptionsList(descriptionProperties = "nombreCompleto")
     private Persona persona;
 
-    // --- CORRECCIÓN: Definición completa de las listas ---
-
     @ManyToMany(fetch = FetchType.LAZY)
     @ListProperties("nombre, descripcion")
     private Collection<Habilidad> habilidades;
@@ -50,7 +48,6 @@ public class Voluntario {
     @ListProperties("proyecto.nombre, rolEnProyecto, fechaInicio, horasRegistradas")
     private Collection<Participacion> participaciones;
 
-    // --- MÉTODO CALCULADO (Necesario para tus controladores) ---
     @ReadOnly
     public int calcularHorasTotales() {
         return participaciones == null ? 0 :
